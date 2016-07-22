@@ -130,7 +130,7 @@
             this.listBoxF.ItemHeight = 17;
             this.listBoxF.Location = new System.Drawing.Point(336, 40);
             this.listBoxF.Name = "listBoxF";
-            this.listBoxF.Size = new System.Drawing.Size(316, 497);
+            this.listBoxF.Size = new System.Drawing.Size(316, 514);
             this.listBoxF.TabIndex = 2;
             // 
             // btn_unfinish

@@ -119,37 +119,44 @@ namespace GameList
 
         private void LoadFromFile(object sender, EventArgs e)
         {
-            using (StreamReader streamReader = new StreamReader("GameList.txt"))
+            try {
+                using (StreamReader streamReader = new StreamReader("GameList.txt"))
+                {
+                    //calc
+                    var input = streamReader.ReadLine();
+                    string[] Array1 = input.Split('\0');
+                    string[] ArrayP = Array1[0].Split(Separator);
+                    string[] ArrayF = Array1[1].Split(Separator);
+                    string[] ArraySize = Array1[2].Split(Separator);
+                    var ArrayP2 = ArrayP.ToList();
+                    ArrayP2.Sort();
+                    var ArrayF2 = ArrayF.ToList();
+                    ArrayF2.Sort();
+                    //clear
+                    listBoxP.Items.Clear();
+                    listBoxF.Items.Clear();
+
+                    // write new
+                    foreach (var i in ArrayP2)
+                    {
+                        listBoxP.Items.Add(i);
+                    }
+                    foreach (var i in ArrayF2)
+                    {
+                        listBoxF.Items.Add(i);
+                    }
+
+                    //Read old size settings
+                    this.Width = int.Parse(ArraySize[0]);
+                    this.Height = int.Parse(ArraySize[1]);
+                    Form1_ResizeEnd(sender, e);
+
+                }
+            }
+            catch (Exception ex)
             {
-                //calc
-                var input = streamReader.ReadLine();
-                string[] Array1 = input.Split('\0');
-                string[] ArrayP = Array1[0].Split(Separator);
-                string[] ArrayF = Array1[1].Split(Separator);
-                string[] ArraySize = Array1[2].Split(Separator);
-                var ArrayP2 = ArrayP.ToList();
-                ArrayP2.Sort();
-                var ArrayF2 = ArrayF.ToList();
-                ArrayF2.Sort();
-                //clear
                 listBoxP.Items.Clear();
                 listBoxF.Items.Clear();
-
-                // write new
-                foreach (var i in ArrayP2)
-                {
-                    listBoxP.Items.Add(i);
-                }
-                foreach (var i in ArrayF2)
-                {
-                    listBoxF.Items.Add(i);
-                }
-
-                //Read old size settings
-                this.Width = int.Parse( ArraySize[0] );
-                this.Height = int.Parse(ArraySize[1]);
-                Form1_ResizeEnd(sender, e);
-
             }
             updateGameCount();
         }
